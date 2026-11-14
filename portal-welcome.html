@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#DFF3FC">
+  <meta name="description" content="Welcome to the Justified Tutor's Academy Student Portal.">
+  <title>Welcome | Justified Tutor's Academy</title>  <style>
+    :root {
+      --navy: #092B4C;
+      --teal: #087F8C;
+      --gold: #E6B84A;
+      --light: #DFF3FC;
+      --white: #FFFFFF;
+      --text: #183247;
+      --muted: #667B8C;
+      --border: #C7E5F3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--light);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      padding: 24px 16px;
+      background: var(--navy);
+      color: var(--white);
+      border-bottom: 5px solid var(--gold);
+      text-align: center;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(20px, 4vw, 28px);
+      line-height: 1.4;
+    }
+
+    header p {
+      margin: 7px 0 0;
+      color: #E1EDF5;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .welcome-card {
+      width: 100%;
+      max-width: 560px;
+      padding: 32px 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--white);
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(9, 43, 76, 0.08);
+    }
+
+    .welcome-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--light);
+      color: var(--navy);
+      font-size: 30px;
+    }
+
+    .welcome-card h2 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: clamp(23px, 5vw, 30px);
+      line-height: 1.4;
+    }
+
+    .welcome-card > p {
+      margin: 0 0 22px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .features {
+      margin: 24px 0;
+      padding: 18px;
+      border-radius: 12px;
+      background: #F5FAFD;
+      text-align: left;
+    }
+
+    .features h3 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .features ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .features li {
+      margin: 10px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .continue-button {
+      display: flex;
+      width: 100%;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 18px;
+      border: none;
+      border-radius: 10px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .continue-button:hover,
+    .continue-button:focus {
+      background: var(--teal);
+    }
+
+    .login-note {
+      margin: 17px 0 0 !important;
+      color: var(--muted) !important;
+      font-size: 12px !important;
+      line-height: 1.7 !important;
+    }
+
+    footer {
+      padding: 20px 14px;
+      background: var(--navy);
+      color: #E1EDF5;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    footer strong {
+      color: var(--gold);
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 20px 12px;
+      }
+
+      .logo {
+        width: 60px;
+        height: 60px;
+        font-size: 21px;
+      }
+
+      .welcome-card {
+        padding: 25px 18px;
+      }
+
+      .features {
+        padding: 15px;
+      }
+    }
+  </style></head><body>  <header>
+    <div class="logo" aria-label="JTA logo">JTA</div>
+    <h1>JUSTIFIED TUTOR'S ACADEMY</h1>
+    <p>Student Portal · Learn Today. Excel Tomorrow.</p>
+  </header>  <main>
+    <section class="welcome-card">
+      <div class="welcome-icon" aria-hidden="true">🎓</div>  <h2>Welcome to Your Student Portal</h2>
+
+  <p>
+    Welcome to Justified Tutor's Academy. Your student portal
+    provides access to your academic information and learning
+    activities in one place.
+  </p>
+
+  <div class="features">
+    <h3>What you can do in your portal</h3>
+    <ul>
+      <li>View your student profile and JTA student code.</li>
+      <li>Mark class attendance and review your attendance history.</li>
+      <li>Monitor your test scores and academic progress.</li>
+      <li>Access available CBT examinations.</li>
+    </ul>
+  </div>
+
+  <a class="continue-button" href="student-portal.html">
+    Continue to Student Portal &rarr;
+  </a>
+
+  <p class="login-note">
+    Please sign in with your student account when prompted.
+    Keep your login details private.
+  </p>
+</section>
+
+  </main>  <footer>
+    <strong>JTA STUDENT PORTAL</strong><br>
+    &copy; 2027 Justified Tutor's Academy<br>
+    Empowering Students for Academic Excellence
+  </footer></body>
+</html>

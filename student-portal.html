@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#092B4C">
+<title>Student Portal | Justified Tutor's Academy</title>
+<style>
+:root{--navy:#092B4C;--blue:#124A78;--teal:#087F8C;--gold:#E6B84A;--light:#DFF3FC;--text:#183247;--muted:#667B8C;--border:#D8E3EC}
+*{box-sizing:border-box}body{margin:0;background:var(--light);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{padding:24px 18px;color:#fff;background:linear-gradient(120deg,var(--navy),var(--blue));border-bottom:5px solid var(--gold)}
+.header-inner{max-width:1050px;margin:auto;display:flex;align-items:center;gap:15px}.logo{flex-shrink:0;width:62px;height:62px;display:flex;align-items:center;justify-content:center;border:3px solid var(--gold);border-radius:50%;background:#fff;color:var(--navy);font-size:21px;font-weight:900}
+header h1{margin:0;font-size:clamp(18px,4vw,26px);line-height:1.4}header p{margin:5px 0 0;color:#E1EDF5;font-size:13px}
+main{width:100%;max-width:1050px;margin:26px auto;padding:0 16px 30px}.welcome{margin-bottom:22px}.welcome h2{margin:0 0 8px;color:var(--navy);font-size:25px}.welcome p{margin:0;color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{min-width:0;padding:21px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 4px 15px rgba(9,43,76,.05)}.card h3{margin:0 0 17px;color:var(--navy);font-size:18px}
+.profile-row{padding:12px 0;border-bottom:1px solid var(--border);overflow-wrap:anywhere}.profile-row:last-child{border-bottom:none}.profile-row span{display:block;margin-bottom:5px;color:var(--muted);font-size:12px}.profile-row strong{color:var(--navy);font-size:15px}
+label{display:block;margin:14px 0 7px;color:var(--navy);font-size:14px;font-weight:bold}input{display:block;width:100%;min-height:46px;padding:12px;border:1px solid var(--border);border-radius:8px;background:#fff;font:inherit;font-size:16px}input:focus{outline:2px solid var(--teal);outline-offset:2px}
+button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 16px;border:none;border-radius:8px;background:var(--navy);color:#fff;font:inherit;font-size:14px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}button:hover,.button:hover{background:var(--teal)}button:disabled{opacity:.6;cursor:wait}.full-button{width:100%;margin-top:15px}.gold-button{background:var(--teal)}
+.table-wrap{width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:12px 9px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}th{background:var(--light);color:var(--navy)}
+.empty{color:var(--muted);font-size:14px;line-height:1.6}.status{display:none;margin-bottom:18px;padding:13px;border-radius:9px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}.notice{margin-top:16px;padding:13px;border-radius:9px;background:#FFF7DF;color:#6E5010;font-size:13px;line-height:1.6}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}footer{padding:20px 15px;background:var(--navy);color:#E1EDF5;text-align:center;font-size:12px;line-height:1.8}footer strong{color:var(--gold)}
+@media(max-width:650px){.grid{grid-template-columns:1fr}main{margin-top:20px}.card{padding:18px}}
+
+/* JTA portal navigation redesign */
+.hidden{display:none!important}
+body{background:#f4f7fb;color:#1c2a3a} .topbar{padding:0 18px;background:#fff;border-bottom:1px solid #e4eaf1;color:var(--navy)}
+.topbar-inner{max-width:1320px;min-height:86px;margin:auto;display:flex;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:13px}.brand h1{margin:0;color:var(--navy);font-size:clamp(16px,3vw,22px);letter-spacing:.3px}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.logo{width:50px;height:50px;border:0;border-radius:15px;background:linear-gradient(135deg,#124a78,#087f8c);color:#fff;font-size:17px;box-shadow:0 6px 15px #092b4c22}
+.menu-toggle{width:44px;height:44px;padding:0;background:#eef3f8;color:var(--navy);font-size:23px;border-radius:12px}.header-logout{margin-left:auto;background:#f0f3f8;color:var(--navy)}.portal-layout{max-width:1320px;margin:auto;display:flex;min-height:calc(100vh - 86px)}
+.sidebar{width:255px;flex:0 0 255px;padding:22px 14px;background:#fff;border-right:1px solid #e4eaf1;display:flex;flex-direction:column}.sidebar-heading{display:flex;align-items:center;justify-content:space-between;padding:6px 12px 18px;color:#8190a0;font-size:11px;letter-spacing:1.2px}.sidebar-heading button{display:none;background:transparent;color:#4b5b6b;font-size:25px;padding:0 8px}.nav-list{display:grid;gap:5px}.nav-item{width:100%;justify-content:flex-start;gap:14px;min-height:49px;padding:11px 13px;border-radius:10px;background:transparent;color:#344354;text-align:left;font-weight:600;font-size:15px}.nav-item:hover,.nav-item.active{background:#eaf2ff;color:#174eaa}.nav-icon{width:24px;text-align:center;font-size:21px;color:#657487}.nav-item.active .nav-icon{color:#174eaa}.nav-arrow{margin-left:auto;color:#8895a4}.sidebar-footer{margin-top:auto;padding:20px 12px 5px;color:#9aa5b1;font-size:11px;line-height:1.6}.main-content{flex:1;min-width:0;padding:28px 26px 42px}.welcome{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 22px;padding:25px 26px;border-radius:17px;background:linear-gradient(120deg,#092b4c,#145b8a 70%,#087f8c);color:#fff}.welcome h2{margin:5px 0 7px;color:#fff;font-size:clamp(22px,4vw,29px)}.welcome p{margin:0;color:#dcebf5;line-height:1.5}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#d8b75c}.welcome-badge{padding:9px 12px;border:1px solid #ffffff55;border-radius:99px;color:#fff;font-size:10px;font-weight:800;white-space:nowrap}.grid{gap:16px}.card{border:1px solid #e2e9f0;border-radius:15px;box-shadow:0 5px 18px #163b5c08;padding:20px}.card h3{margin:0;color:#183b5b}.card-heading{display:flex;align-items:center;gap:12px;margin-bottom:14px}.card-heading h3{margin:0 0 3px}.card-heading p{margin:0;color:#8a98a7;font-size:12px}.card-symbol{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;color:#174eaa;font-size:21px}.profile-row{padding:11px 0}.profile-row strong{color:#173a59}.full-button{margin-top:12px}.button-link{display:flex;align-items:center;justify-content:center;min-height:46px;padding:12px 15px;border-radius:9px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;text-align:center}.button-link:hover{background:var(--teal)}.page-heading{margin:2px 0 22px}.page-heading h2{margin:5px 0;color:var(--navy);font-size:28px}.page-heading p{margin:0;color:var(--muted)}.page-heading .eyebrow{color:#087f8c}.coming-card{max-width:650px;margin:20px auto;padding:45px 25px;text-align:center;background:#fff;border:1px solid #e2e9f0;border-radius:16px}.coming-icon{width:58px;height:58px;margin:0 auto 15px;display:grid;place-items:center;border-radius:17px;background:#eaf2ff;color:#174eaa;font-size:28px}.coming-card h3{margin:0 0 8px;color:var(--navy)}.coming-card p{max-width:430px;margin:auto;color:var(--muted);line-height:1.6}.mobile-logout{display:none}.drawer-shade{display:none}
+@media(max-width:760px){.topbar-inner{min-height:72px}.topbar{padding:0 12px}.logo{width:43px;height:43px;border-radius:13px}.brand{gap:9px}.brand p{font-size:10px}.header-logout{display:none}.portal-layout{min-height:calc(100vh - 72px)}.sidebar{position:fixed;z-index:1002;left:0;top:0;bottom:0;width:min(82vw,310px);transform:translateX(-105%);transition:transform .25s ease;box-shadow:10px 0 35px #102a4320}.sidebar.open{transform:translateX(0)}.sidebar-heading button{display:block}.drawer-shade.show{display:block;position:fixed;z-index:1001;inset:0;background:#0c1b2a88}.main-content{padding:18px 13px 35px;width:100%}.welcome{padding:21px 18px;border-radius:14px}.welcome-badge{display:none}.grid{grid-template-columns:1fr}.card{padding:17px}.mobile-logout{display:block;margin-top:24px}.mobile-logout button{width:100%;background:#f0f3f8;color:var(--navy)}}
+
+
+
+/* ===== JTA premium blue / purple portal theme ===== */
+:root{
+ --navy:#172554;--blue:#2457D6;--teal:#6754D9;--gold:#A99BFF;
+ --light:#F4F6FF;--text:#20294A;--muted:#77809A;--border:#E4E8F5;
+ --jta-purple:#6654D9;--jta-blue:#2858D8;--jta-ink:#18234B;
+}
+html{scroll-behavior:smooth}
+body{background:#F5F7FF;color:var(--jta-ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:.05px}
+.topbar{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid #E7EAF6;box-shadow:0 5px 24px rgba(34,47,100,.05)}
+.topbar-inner{min-height:88px;max-width:1440px;padding:0 24px}
+.brand{gap:14px}.brand h1{font-size:clamp(15px,2.2vw,21px);font-weight:850;letter-spacing:.65px;color:#1A285B}.brand p{font-size:11px;font-weight:850;letter-spacing:1.05px;text-transform:uppercase;color:#6654D9}
+.logo{width:52px;height:52px;border-radius:17px;background:linear-gradient(145deg,#2860E6 0%,#6654D9 75%,#8A79F0 100%);box-shadow:0 9px 22px rgba(77,82,205,.25);font-size:17px;letter-spacing:-.7px}
+.menu-toggle{background:#F0F2FF;color:#4C49B8;border:1px solid #E5E7FA}
+.header-logout{border:1px solid #E5E7F4;background:#F5F6FC;color:#334078;border-radius:12px;padding:11px 19px}
+.portal-layout{max-width:1440px;min-height:calc(100vh - 88px)}
+.sidebar{width:268px;flex-basis:268px;padding:26px 17px 20px;background:#fff;border-right:1px solid #E8EAF5;box-shadow:8px 0 30px rgba(32,44,95,.025)}
+.sidebar-heading{padding:8px 13px 20px;color:#9AA1BB;font-size:10px;font-weight:850;letter-spacing:1.6px}
+.nav-list{gap:7px}.nav-item{min-height:51px;padding:12px 14px;border-radius:13px;color:#59617E;font-size:14px;font-weight:700;transition:background .18s ease,color .18s ease,transform .18s ease}
+.nav-item:hover{background:#F3F2FF;color:#5D4CC8;transform:translateX(2px)}
+.nav-item.active{background:linear-gradient(100deg,#EEF1FF,#F4F0FF);color:#4F48BC;box-shadow:inset 3px 0 0 #6654D9}
+.nav-icon{font-size:20px;color:#9299B4}.nav-item.active .nav-icon{color:#6254D4}
+.sidebar-footer{margin:30px 5px 0;padding:17px 13px;border:1px solid #E9E7FC;border-radius:14px;background:linear-gradient(135deg,#F5F6FF,#F7F2FF);color:#8188A5;font-size:10px;line-height:1.8}
+.sidebar-footer strong{color:#5D50C9;font-size:10px;letter-spacing:.5px}
+.main-content{padding:32px clamp(16px,3vw,42px) 50px;}
+.welcome{position:relative;isolation:isolate;overflow:hidden;min-height:190px;margin-bottom:25px;padding:32px clamp(22px,4vw,42px);border-radius:22px;background:linear-gradient(112deg,#1D3D9B 0%,#315ED5 48%,#6855D8 100%);box-shadow:0 16px 35px rgba(55,70,177,.18)}
+.welcome:before,.welcome:after{content:"";position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.15);border-radius:50%;pointer-events:none}
+.welcome:before{width:330px;height:330px;right:5%;top:-210px}.welcome:after{width:240px;height:240px;right:-35px;bottom:-180px;background:rgba(255,255,255,.06)}
+.welcome h2{font-size:clamp(23px,3.4vw,32px);font-weight:850;letter-spacing:-.7px}.welcome p{max-width:620px;font-size:13px;color:#E6E9FF;line-height:1.75}
+.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:850;color:#D8D5FF}.welcome-badge{padding:11px 15px;border:1px solid #FFFFFF55;border-radius:12px;background:#FFFFFF16;color:#fff;font-size:10px;letter-spacing:.6px;white-space:normal;text-align:center;max-width:205px;line-height:1.5}
+.grid{gap:18px}.home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{padding:23px;background:#fff;border:1px solid #E8EAF5;border-radius:18px;box-shadow:0 8px 25px rgba(36,48,105,.045);transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{box-shadow:0 13px 30px rgba(36,48,105,.075)}
+.card-heading{gap:13px;margin-bottom:18px}.card-symbol{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#EEF1FF,#F3EEFF);color:#5E50CB;font-size:21px}
+.card-heading h3,.card h3{font-size:16px;font-weight:800;letter-spacing:-.2px;color:#202C5D}.card-heading p{margin-top:4px;color:#9097B0;font-size:11px}
+.profile-row{padding:13px 0;border-bottom:1px solid #F0F1F8}.profile-row span{font-size:10px;font-weight:750;letter-spacing:.45px;text-transform:uppercase;color:#9299B0}.profile-row strong{font-size:13px;color:#293664}
+label{color:#34417A;font-size:12px;font-weight:800}input{min-height:48px;border:1px solid #E2E6F2;border-radius:11px;background:#FBFCFF;color:#26325D}input:focus{outline:3px solid #E6E3FF;border-color:#7668E4}
+button,.button{min-height:45px;border-radius:11px;background:linear-gradient(105deg,#285BD8,#6654D9);box-shadow:0 6px 14px rgba(75,82,195,.14);font-size:13px;transition:filter .18s ease,transform .18s ease}
+button:hover,.button:hover{background:linear-gradient(105deg,#214FC3,#5744C8);filter:brightness(1.04);transform:translateY(-1px)}button:disabled{transform:none}
+.gold-button{background:linear-gradient(105deg,#6552D5,#8271E8)}.button-link{border-radius:11px;background:linear-gradient(105deg,#285BD8,#6654D9);box-shadow:0 6px 14px rgba(75,82,195,.14);font-size:13px}
+.notice{background:#F3F0FF;border:1px solid #E6E1FF;color:#554AA6;border-radius:12px;font-size:11px}
+.status{border:1px solid #E6E8F5;border-radius:12px;box-shadow:0 4px 15px rgba(30,43,99,.04)}
+.page-heading{margin-bottom:24px}.page-heading h2{font-size:29px;font-weight:850;letter-spacing:-.6px;color:#202C5D}.page-heading p{font-size:13px;color:#828AA6;line-height:1.7}.page-heading .eyebrow{color:#6654D9}
+.coming-card{max-width:720px;padding:55px 28px;border:1px solid #E8EAF5;border-radius:20px;box-shadow:0 10px 30px rgba(36,48,105,.05)}.coming-icon{width:66px;height:66px;border-radius:19px;background:linear-gradient(145deg,#EEF1FF,#F2EDFF);color:#6252D0}
+.table-wrap{border:1px solid #EDF0F7;border-radius:12px}table{font-size:12px}th{background:#F3F4FF;color:#45499C;font-weight:800}td{color:#4B5577}th,td{padding:13px 11px;border-bottom:1px solid #EFF1F7}
+.empty{font-size:12px;line-height:1.8;color:#828AA5}
+footer{background:#17245B;color:#DDE2FF;font-size:11px;line-height:2}footer strong{color:#C7BEFF;letter-spacing:1.2px}footer b{color:#fff;letter-spacing:1px}
+@media(max-width:900px){.sidebar{width:245px;flex-basis:245px}.main-content{padding:24px 18px 40px}}
+@media(max-width:760px){.topbar-inner{min-height:74px;padding:0 13px}.topbar{padding:0}.brand h1{font-size:13px;letter-spacing:.25px}.brand p{font-size:9px;letter-spacing:.55px}.logo{width:43px;height:43px;border-radius:14px}.sidebar{width:min(84vw,320px);padding:22px 16px}.main-content{padding:18px 13px 35px}.welcome{min-height:0;padding:24px 19px;border-radius:18px;margin-bottom:18px}.welcome h2{font-size:24px}.welcome p{font-size:12px}.welcome-badge{display:inline-block;margin-top:16px;max-width:100%;padding:8px 11px}.home-grid{grid-template-columns:1fr}.card{padding:19px;border-radius:16px}.page-heading h2{font-size:25px}.coming-card{padding:42px 20px}}
+@media(min-width:761px){.main-content{min-height:calc(100vh - 88px)}}
+
+
+.subscription-card{border:1px solid #d9def4;background:linear-gradient(135deg,#fff,#f4f5ff)}
+.subscription-card h3{margin:0 0 12px;color:#172554}
+.subscription-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.subscription-item{padding:11px 12px;border-radius:10px;background:#fff;border:1px solid #e4e8f5}
+.subscription-item span{display:block;color:#77809A;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.subscription-item strong{display:block;margin-top:5px;color:#18234B;font-size:14px;overflow-wrap:anywhere}
+.plan-status{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#e8f8ef;color:#176638;font-size:11px;font-weight:850}
+.plan-status.standard{background:#eef2f7;color:#475569}
+.premium-note{margin-top:12px;padding:12px;border-radius:10px;background:#f0edff;color:#44378e;font-size:13px;line-height:1.5}
+.premium-tag{display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;background:#eeeaff;color:#5743b5;font-size:10px;font-weight:850;vertical-align:middle}
+@media(max-width:500px){.subscription-grid{grid-template-columns:1fr}}
+
+
+/* JTA visual library cards and responsive document reader */
+.library-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.library-card{overflow:hidden;padding:0!important}
+.library-cover{position:relative;display:flex;align-items:center;justify-content:center;min-height:205px;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#214fc3,#6654d9);color:#fff}
+.library-cover img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+.library-cover-fallback{position:relative;z-index:1;width:100%;height:100%;min-height:205px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,#1748b5,#6754d9);color:#fff}
+.library-cover-fallback small{font-size:10px;font-weight:900;letter-spacing:1.5px;opacity:.9}
+.library-cover-fallback strong{font-size:clamp(17px,2vw,24px);line-height:1.15;text-transform:uppercase;overflow-wrap:anywhere}
+.library-cover-fallback span{font-size:11px;font-weight:700;opacity:.9}
+.library-card-body{padding:15px 16px 17px}
+.library-card-body h3{margin:0 0 7px;font-size:15px;line-height:1.35;color:#202c5d}
+.library-meta{margin:0 0 8px;color:#818aa6;font-size:11px;line-height:1.5}
+.library-card .full-button{margin-top:8px}
+.library-type{display:inline-flex;padding:5px 8px;border-radius:20px;background:#eef1ff;color:#5147b7;font-size:10px;font-weight:850}
+.reader-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.reader-frame{width:100%;height:min(78vh,900px);min-height:520px;border:1px solid #e2e6f2;border-radius:12px;background:#fff}
+.reader-fallback{padding:18px;text-align:center;color:#66708d;background:#f7f8ff;border-radius:10px;line-height:1.6}
+.video-cover{background:linear-gradient(135deg,#122b69,#5d4bc5)}
+@media(max-width:520px){.library-grid{gap:11px}.library-cover,.library-cover-fallback{min-height:155px}.library-card-body{padding:12px}.library-card-body h3{font-size:13px}.reader-frame{height:70vh;min-height:420px}}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="brand"><div class="logo">JTA</div><div><h1>JUSTIFIED TUTOR'S ACADEMY</h1><p>300+ IN JAMB IS OUR CALLING</p></div></div>
+    <button id="headerLogout" class="header-logout" type="button">Log Out</button>
+  </div>
+</header>
+<div id="drawerShade" class="drawer-shade"></div>
+<div class="portal-layout">
+  <aside id="sideDrawer" class="sidebar" aria-label="Student portal navigation">
+    <div class="sidebar-heading"><strong>JTA STUDENT MENU</strong><button id="menuClose" type="button" aria-label="Close menu">×</button></div>
+    <nav class="nav-list">
+      <button class="nav-item active" data-view="home"><span class="nav-icon">⌂</span>Home</button>
+      <button class="nav-item" data-view="study"><span class="nav-icon">♧</span>Study Materials</button>
+      <button class="nav-item" data-view="videos"><span class="nav-icon">▶</span>Video Lessons</button>
+      <button class="nav-item" data-view="test"><span class="nav-icon">▣</span>Test <span class="nav-arrow">⌄</span></button>
+      <button class="nav-item" data-view="chat"><span class="nav-icon">▤</span>Community & Class Groups</button>
+      <button class="nav-item" data-view="news"><span class="nav-icon">▥</span>News</button>
+      <button class="nav-item" data-view="connect"><span class="nav-icon">⌘</span>Connect <span class="nav-arrow">⌄</span></button>
+      <button class="nav-item" data-view="shop"><span class="nav-icon">▱</span>Shop <span class="nav-arrow">⌄</span></button>
+      <button class="nav-item" data-view="dashboard"><span class="nav-icon">⋯</span>Dash</button>
+      <button class="nav-item" data-view="download"><span class="nav-icon">⇩</span>Download JTA</button>
+    </nav>
+    <div class="sidebar-footer"><strong>300+ IN JAMB IS OUR CALLING</strong><br>Empowering Students for Academic Excellence</div>
+  </aside>
+  <main class="main-content">
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <section id="view-home" class="portal-view">
+      <div class="welcome"><div><span class="eyebrow">WELCOME BACK</span><h2 id="welcomeTitle">Welcome to Your Student Portal</h2><p>Your learning journey, attendance and academic progress — all in one place. 300+ IN JAMB IS OUR CALLING.</p></div><span class="welcome-badge">✦ 300+ IN JAMB IS OUR CALLING</span></div>
+      <div class="grid home-grid">
+        <section class="card subscription-card" id="subscriptionCard">
+          <div class="card-heading"><span class="card-symbol">✦</span><div><h3>My JTA Subscription</h3><p>Your current access and benefits</p></div></div>
+          <div class="subscription-grid">
+            <div class="subscription-item"><span>Current plan</span><strong id="subscriptionPlan">Loading...</strong></div>
+            <div class="subscription-item"><span>Access status</span><strong id="subscriptionStatus">Loading...</strong></div>
+            <div class="subscription-item"><span>Access started</span><strong id="subscriptionStart">—</strong></div>
+            <div class="subscription-item"><span>Access expires</span><strong id="subscriptionExpiry">—</strong></div>
+          </div>
+          <div class="premium-note" id="premiumBenefitsNote">Checking your JTA learning benefits...</div>
+        </section>
+        <section class="card"><div class="card-heading"><span class="card-symbol">♙</span><div><h3>My Student Profile</h3><p>Your registered details</p></div></div>
+          <div class="profile-row"><span>Full Name</span><strong id="fullName">Loading...</strong></div>
+          <div class="profile-row"><span>JTA Student Code</span><strong id="studentCode">Loading...</strong></div>
+          <div class="profile-row"><span>Email Address</span><strong id="email">Loading...</strong></div>
+          <div class="profile-row"><span>Department</span><strong id="department">Loading...</strong></div>
+          <button id="refreshButton" class="full-button" type="button">Refresh My Information</button>
+        </section>
+        <section class="card"><div class="card-heading"><span class="card-symbol">✓</span><div><h3>Class Attendance</h3><p>Record your attendance for a class</p></div></div>
+          <p class="empty">Select the class date and record your attendance. The server records the time your attendance is submitted.</p>
+          <form id="attendanceForm"><label for="classDate">Class Date</label><input id="classDate" type="date" required><button id="attendanceButton" class="full-button gold-button" type="submit">Mark Attendance</button></form>
+          <div class="notice">Please mark attendance only when attending the actual class. Attendance can be recorded once per class date.</div>
+        </section>
+        <section class="card"><div class="card-heading"><span class="card-symbol">▦</span><div><h3>My Attendance History</h3><p>Your recorded class attendance</p></div></div><div id="attendanceList" class="empty">Loading attendance records...</div></section>
+        <section class="card quick-card"><div class="card-heading"><span class="card-symbol">▣</span><div><h3>Continue Learning</h3><p>Access your JTA examination area</p></div></div><p class="empty">Take your weekly CBT examination and review your saved test scores.</p><button type="button" class="full-button" data-open-view="test">Open Test Centre</button></section>
+      </div>
+    </section>
+    <section id="view-test" class="portal-view hidden">
+      <div class="page-heading"><span class="eyebrow">ASSESSMENT CENTRE</span><h2>Tests & Results</h2><p>Take your JTA CBT examinations and monitor your recorded scores.</p></div>
+      <div class="grid">
+        <section class="card"><div class="card-heading"><span class="card-symbol">▣</span><div><h3>JTA CBT Examination</h3><p>Weekly computer-based tests</p></div></div><p class="empty">Choose an available examination, answer the questions and submit before the timer expires.</p><a class="button-link full-button" href="cbt.html">Start / Continue CBT Examination</a></section>
+        <section class="card"><div class="card-heading"><span class="card-symbol">★</span><div><h3>My Test Scores</h3><p>Your examination performance</p></div></div><div id="scoresList" class="empty">Loading test scores...</div><button id="refreshScoresButton" class="full-button" type="button">Refresh My Results</button></section>
+      </div>
+    </section>
+    <section id="view-dashboard" class="portal-view hidden">
+      <div class="page-heading"><span class="eyebrow">MY PROGRESS</span><h2>Academic Dashboard</h2><p>A quick view of your personal JTA learning records.</p></div>
+      <div class="grid"><section class="card"><h3>My Attendance Summary</h3><p class="empty">Your attendance history is available on the Home page.</p><button class="full-button" type="button" data-open-view="home">View Home & Attendance</button></section><section class="card"><h3>My Examination Records</h3><p class="empty">Your saved examination scores are available in the Test Centre.</p><button class="full-button" type="button" data-open-view="test">View Test Results</button></section></div>
+    </section>
+    <section id="view-study" class="portal-view hidden">
+      <div class="page-heading"><span class="eyebrow">JTA DIGITAL LIBRARY</span><h2>Study Materials</h2><p>Browse your PDF notes, textbooks and past questions. Preview each book cover before opening it, and save eligible PDFs for offline reading.</p></div>
+      <div id="materialsStatus" class="empty">Loading your JTA study materials...</div>
+      <div id="materialsGrid" class="library-grid"></div>
+      <section id="jtaReader" class="card" hidden><div class="reader-toolbar"><strong id="readerTitle">Reading material</strong><div class="actions"><a id="readerOpenNew" class="button-link" href="#" target="_blank" rel="noopener">Open in new tab</a><button type="button" id="closeReader">Close reader</button></div></div><div id="readerBody"></div></section>
+    </section>
+    <section id="view-videos" class="portal-view hidden">
+      <div class="page-heading"><span class="eyebrow">LEARN FROM EXPERTS</span><h2>Video Lessons</h2><p>Watch JTA lessons organised by subject and topic. Choose a lesson to play it here.</p></div>
+      <div id="videosStatus" class="empty">Loading your video lessons...</div>
+      <div id="videosGrid" class="library-grid"></div>
+    </section>
+    <section id="view-chat" class="portal-view hidden"><div class="page-heading"><span class="eyebrow">STUDENT COMMUNITY</span><h2>Community & Class Groups</h2><p>Join the official JTA channel and the class groups relevant to your department.</p></div><div id="communityStatus" class="empty">Loading your JTA community links...</div><div id="communityGroups" class="grid"></div><div class="notice">Only use official JTA links shown here. Group membership is managed by the platform administrators. If a link has expired or you cannot join, contact JTA support.</div></section>
+    <section id="view-news" class="portal-view hidden"><div class="page-heading"><span class="eyebrow">UPDATES & ANNOUNCEMENTS</span><h2>News</h2><p>Important announcements from Justified Tutor's Academy.</p></div><div class="coming-card"><div class="coming-icon">▥</div><h3>JTA News is coming soon</h3><p>Class announcements, examination updates and important notices will be published here.</p></div></section>
+    <section id="view-connect" class="portal-view hidden"><div class="page-heading"><span class="eyebrow">GET SUPPORT</span><h2>Connect</h2><p>Find ways to reach and get support from JTA.</p></div><div class="coming-card"><div class="coming-icon">⌘</div><h3>JTA Connect is coming soon</h3><p>Support contacts and student guidance links will be added here.</p></div></section>
+    <section id="view-shop" class="portal-view hidden"><div class="page-heading"><span class="eyebrow">JTA STORE</span><h2>Shop</h2><p>Explore learning resources and JTA materials.</p></div><div class="coming-card"><div class="coming-icon">▱</div><h3>JTA Shop is coming soon</h3><p>Approved study materials and academy items will appear here.</p></div></section>
+    <section id="view-download" class="portal-view hidden"><div class="page-heading"><span class="eyebrow">LEARN ON THE GO</span><h2>Download JTA</h2><p>Quick access to JTA from your device.</p></div><div class="coming-card"><div class="coming-icon">⇩</div><h3>JTA app download is coming soon</h3><p>When an official app or installable portal is ready, its safe download instructions will be posted here.</p></div></section>
+    <div class="mobile-logout"><button id="logoutButton" type="button">Log Out</button></div>
+  </main>
+</div>
+<footer><strong>JUSTIFIED TUTOR'S ACADEMY</strong><br><b>300+ IN JAMB IS OUR CALLING</b><br>© 2027 Justified Tutor's Academy · Empowering Students for Academic Excellence</footer>
+<script>
+const API_BASE="https://jta-student-backend.justifiedtutorsacademy.workers.dev";
+const token=sessionStorage.getItem("jta_student_token");
+const statusBox=document.getElementById("status");
+const refreshButton=document.getElementById("refreshButton");
+const attendanceButton=document.getElementById("attendanceButton");
+
+function showStatus(text,success=false){statusBox.style.display="block";statusBox.style.background=success?"#E5F7EC":"#FDECEC";statusBox.style.color=success?"#176638":"#A12626";statusBox.textContent=text}
+function redirectToLogin(){
+  sessionStorage.removeItem("jta_student_token");
+  localStorage.removeItem("jta_student_code");
+  window.location.replace("login.html");
+}
+async function apiRequest(path,options={}){
+  if(!sessionStorage.getItem("jta_student_token")){redirectToLogin();throw new Error("Your session has ended. Please log in again.");}
+  const response=await fetch(API_BASE+path,{...options,cache:"no-store",headers:{"Content-Type":"application/json","Authorization":"Bearer "+sessionStorage.getItem("jta_student_token"),...(options.headers||{})}});
+  const data=await response.json().catch(()=>({}));
+  if(response.status===401||response.status===403){redirectToLogin();throw new Error("Your session has expired. Please log in again.");}
+  if(!response.ok)throw new Error(data.message||data.error||"The request could not be completed.");
+  return data;
+}
+function safeText(value){return value===null||value===undefined||value===""?"Not provided":String(value)}
+function formatAttendanceTime(value){
+  if(!value)return "Time unavailable";
+  const normalized=/Z$|[+-]\d{2}:\d{2}$/.test(value)?value:value.replace(" ","T")+"Z";
+  const date=new Date(normalized);
+  if(Number.isNaN(date.getTime()))return "Time unavailable";
+  return new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).format(date);
+}
+function renderTable(container,columns,rows,emptyMessage){
+  if(!Array.isArray(rows)||rows.length===0){container.className="empty";container.textContent=emptyMessage;return}
+  const wrapper=document.createElement("div");wrapper.className="table-wrap";
+  const table=document.createElement("table");const thead=document.createElement("thead");const headerRow=document.createElement("tr");
+  columns.forEach(column=>{const th=document.createElement("th");th.textContent=column.label;headerRow.appendChild(th)});
+  thead.appendChild(headerRow);table.appendChild(thead);const tbody=document.createElement("tbody");
+  rows.forEach(row=>{const tr=document.createElement("tr");columns.forEach(column=>{const td=document.createElement("td");const value=column.format?column.format(row[column.key],row):row[column.key];td.textContent=safeText(value);tr.appendChild(td)});tbody.appendChild(tr)});
+  table.appendChild(tbody);wrapper.appendChild(table);container.className="";container.replaceChildren(wrapper);
+}
+async function loadPortal(){
+  if(!sessionStorage.getItem("jta_student_token")){
+    if(currentStudentCode()&&!navigator.onLine){startOfflineOnlyPortal();return;}
+    if(currentStudentCode()){
+      try{await fetch(API_BASE+'/api/health',{cache:'no-store'});redirectToLogin();return;}
+      catch{startOfflineOnlyPortal();return;}
+    }
+    redirectToLogin();return;
+  }
+  refreshButton.disabled=true;refreshButton.textContent="Loading...";
+  try{
+    const data=await apiRequest("/api/me");const student=data.student||{};
+    if(student.studentCode)localStorage.setItem("jta_student_code",student.studentCode);
+    document.getElementById("welcomeTitle").textContent="Welcome, "+safeText(student.fullName);
+    document.getElementById("fullName").textContent=safeText(student.fullName);
+    document.getElementById("studentCode").textContent=safeText(student.studentCode);
+    document.getElementById("email").textContent=safeText(student.email);
+    document.getElementById("department").textContent=safeText(student.department);
+    const plan=student.subscriptionPlan||"Legacy / not assigned";
+    const active=String(student.subscriptionStatus||"").toLowerCase()==="active" || String(student.subscriptionStatus||"").toLowerCase()==="legacy";
+    document.getElementById("subscriptionPlan").textContent=plan;
+    document.getElementById("subscriptionStatus").textContent=active?(student.subscriptionStatus==="legacy"?"Legacy access":"Active"):(student.subscriptionStatus||"Not available");
+    document.getElementById("subscriptionStart").textContent=student.accessStartDate||"Not recorded";
+    document.getElementById("subscriptionExpiry").textContent=student.accessExpiryDate||"No expiry recorded";
+    const benefits=document.getElementById("premiumBenefitsNote");
+    if(student.premiumBenefits){benefits.textContent="Premium benefits are enabled for your plan. You can access JTA premium-only learning materials and eligible special learning extras.";}
+    else{benefits.textContent="Your plan includes normal JTA classes and general learning materials. Premium-only extras are available only on Premium Pro, Ultimate Pro Max and Diamond Pro Max.";}
+    renderTable(document.getElementById("attendanceList"),[
+      {key:"class_date",label:"Class Date"},
+      {key:"marked_at",label:"Time Marked",format:value=>formatAttendanceTime(value)},
+      {key:"status",label:"Attendance"}
+    ],data.attendance||[],"No attendance records found yet.");
+    renderTable(document.getElementById("scoresList"),[
+      {key:"test_name",label:"Test"},{key:"score",label:"Score"},{key:"max_score",label:"Maximum"},{key:"taken_at",label:"Date"}
+    ],data.scores||[],"No test scores have been added yet.");
+    showStatus("Your student information has been loaded.",true);
+  }catch(error){if(!sessionStorage.getItem("jta_student_token"))return;showStatus(error.message+" If your session has expired, log in again.")}
+  finally{refreshButton.disabled=false;refreshButton.textContent="Refresh My Information"}
+}
+const JTA_OFFLINE_DB='jta-learning-offline-v1';
+const JTA_OFFLINE_DAYS=7;
+function currentStudentCode(){return (localStorage.getItem('jta_student_code')||'').trim().toUpperCase();}
+function offlineCacheKey(materialId){return currentStudentCode()+':'+materialId;}
+function openOfflineDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(JTA_OFFLINE_DB,1);
+    req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('materials'))req.result.createObjectStore('materials',{keyPath:'id'});};
+    req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+  });
+}
+async function offlinePut(record){
+  const db=await openOfflineDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('materials','readwrite');tx.objectStore('materials').put(record);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
+  });
+}
+async function offlineGet(materialId){
+  const owner=currentStudentCode();if(!owner)return null;
+  const db=await openOfflineDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('materials','readonly'),r=tx.objectStore('materials').get(owner+':'+materialId);
+    r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error);
+  });
+}
+async function offlineAllForCurrentStudent(){
+  const owner=currentStudentCode();if(!owner)return [];
+  const db=await openOfflineDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('materials','readonly'),r=tx.objectStore('materials').getAll();
+    r.onsuccess=()=>resolve((r.result||[]).filter(item=>item.ownerCode===owner));r.onerror=()=>reject(r.error);
+  });
+}
+async function purgeExpiredOfflineMaterials(){
+  const owner=currentStudentCode();if(!owner)return;
+  const db=await openOfflineDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction('materials','readwrite'),store=tx.objectStore('materials'),r=store.getAll();
+    r.onsuccess=()=>{(r.result||[]).forEach(item=>{if(item.ownerCode===owner&&Number(item.expiresAt)<=Date.now())store.delete(item.id);});};
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
+  });
+}
+function openJtaReader(title,content,openUrl=''){
+  const box=document.getElementById('jtaReader');
+  document.getElementById('readerTitle').textContent=title;
+  document.getElementById('readerBody').replaceChildren();
+  if(typeof content==='string')document.getElementById('readerBody').innerHTML=content;
+  const openLink=document.getElementById('readerOpenNew');
+  openLink.href=openUrl||'#';
+  openLink.hidden=!openUrl;
+  box.hidden=false;
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.getElementById('closeReader')?.addEventListener('click',()=>{
+  const box=document.getElementById('jtaReader');box.hidden=true;
+  document.getElementById('readerBody').replaceChildren();
+  document.getElementById('readerOpenNew').href='#';
+});
+function escapeHtml(value){
+  return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function materialCoverUrl(material,isVideo=false){
+  return (isVideo?(material.video_thumbnail_url||material.thumbnail_url||material.cover_image_url):(material.cover_image_url||material.cover_url||material.preview_image_url||material.image_url||material.thumbnail_url||material.thumbnail))||'';
+}
+async function loadLibraryImage(image,url){
+  try{
+    if(/^https?:\/\//i.test(url)){image.src=url;return;}
+    const response=await fetch(API_BASE+url,{headers:{Authorization:'Bearer '+sessionStorage.getItem('jta_student_token')},cache:'no-store'});
+    if(!response.ok)throw Error('Image unavailable');
+    const blob=await response.blob();image.src=URL.createObjectURL(blob);
+  }catch(_){image.remove();const cover=image.parentElement;if(cover&&!cover.querySelector('.library-cover-fallback'))cover.append(makeCoverFallback(image._material,image._isVideo));}
+}
+function createLibraryCard(material,isVideo=false){
+  const card=document.createElement('section');card.className='card library-card';
+  const cover=document.createElement('div');cover.className='library-cover'+(isVideo?' video-cover':'');
+  const coverUrl=materialCoverUrl(material,isVideo);
+  if(coverUrl){
+    const image=document.createElement('img');image.alt=(material.title||'JTA material')+(isVideo?' thumbnail':' cover');image.loading='lazy';image._material=material;image._isVideo=isVideo;
+    cover.append(image);loadLibraryImage(image,coverUrl);
+  }else cover.append(makeCoverFallback(material,isVideo));
+  if(isVideo){
+    const play=document.createElement('span');play.textContent='▶';play.setAttribute('aria-hidden','true');
+    play.style.cssText='position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#2858d8;font-size:22px;box-shadow:0 5px 20px #0003';
+    cover.append(play);
+  }
+  const body=document.createElement('div');body.className='library-card-body';
+  const title=document.createElement('h3');title.textContent=material.title|| (isVideo?'JTA Video Lesson':'JTA Study Material');
+  if(material.premium_only){const tag=document.createElement('span');tag.className='premium-tag';tag.textContent='PREMIUM';title.append(tag);}
+  const meta=document.createElement('p');meta.className='library-meta';
+  meta.textContent=[material.subject,material.department,material.category].filter(Boolean).join(' · ')||(isVideo?'Video lesson':'PDF learning material');
+  const description=document.createElement('p');description.className='library-meta';description.textContent=material.description||'';
+  const type=document.createElement('span');type.className='library-type';type.textContent=isVideo?'VIDEO LESSON':(material.mime_type==='application/pdf'?'PDF MATERIAL':'STUDY MATERIAL');
+  const action=document.createElement('button');action.type='button';action.className='full-button gold-button';action.textContent=isVideo?'Watch lesson':'Read PDF';
+  action.addEventListener('click',()=>openMaterial(material,action,isVideo));
+  body.append(title,meta);if(material.description)body.append(description);body.append(type,action);
+  if(!isVideo&&material.mime_type==='application/pdf'){
+    const offline=document.createElement('button');offline.type='button';offline.className='full-button';offline.textContent='Save for 7-day offline reading';
+    offline.hidden=!!material.premium_only;
+    offline.addEventListener('click',()=>saveOfflineMaterial(material,offline));
+    body.append(offline);
+  }
+  card.append(cover,body);return card;
+}
+function makeCoverFallback(material,isVideo=false){
+  const fallback=document.createElement('div');fallback.className='library-cover-fallback';
+  const brand=document.createElement('small');brand.textContent=isVideo?'JTA VIDEO LESSONS':"JUSTIFIED TUTOR'S ACADEMY";
+  const title=document.createElement('strong');title.textContent=material.title|| (isVideo?'Expert Video Lesson':'Study Material');
+  const subject=document.createElement('span');subject.textContent=[material.subject,material.department].filter(Boolean).join(' · ')||'300+ IN JAMB IS OUR CALLING';
+  fallback.append(brand,title,subject);return fallback;
+}
+async function getMaterialBlob(material){
+  const response=await fetch(API_BASE+'/api/materials/'+encodeURIComponent(material.id)+'/download',{
+    headers:{Authorization:'Bearer '+sessionStorage.getItem('jta_student_token')}
+  });
+  if(response.status===401||response.status===403){redirectToLogin();throw Error('Your session has expired. Please log in again.');}
+  if(!response.ok){const error=await response.json().catch(()=>({}));throw Error(error.error||error.message||'Could not open this material.');}
+  return response;
+}
+async function saveOfflineMaterial(material,button){
+  button.disabled=true;const original=button.textContent;
+  try{
+    const owner=currentStudentCode();if(!owner)throw Error('Reconnect and sign in before saving offline materials.');
+    const response=await getMaterialBlob(material);const blob=await response.blob();
+    if(blob.type!=='application/pdf'&&material.mime_type!=='application/pdf')throw Error('Only PDF files can be saved for offline reading.');
+    const now=Date.now();
+    await offlinePut({id:offlineCacheKey(material.id),materialId:material.id,ownerCode:owner,title:material.title,folderName:material.folder_name||'General Study Materials',blob,savedAt:now,expiresAt:now+JTA_OFFLINE_DAYS*24*60*60*1000});
+    button.textContent='Saved — available for 7 days';
+  }catch(error){showStatus(error.message);button.textContent=original;}
+  finally{button.disabled=false;}
+}
+async function openMaterial(material,button,isVideo=false){
+  button.disabled=true;const original=button.textContent;
+  try{
+    if(isVideo||material.youtube_video_id){
+      const response=await getMaterialBlob(material);
+      const info=await response.json();
+      const videoId=info.videoId||material.youtube_video_id;
+      if(!videoId)throw Error('This video link is not available yet.');
+      const frame=document.createElement('div');frame.style.cssText='position:relative;padding-top:56.25%;background:#101828;border-radius:12px;overflow:hidden';
+      const iframe=document.createElement('iframe');iframe.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(videoId);iframe.title=material.title||'JTA video lesson';iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';iframe.allowFullscreen=true;iframe.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+      frame.append(iframe);openJtaReader(material.title||'JTA Video Lesson',frame);return;
+    }
+    let blob=null;
+    const cached=await offlineGet(material.id).catch(()=>null);
+    if(cached&&Number(cached.expiresAt)>Date.now())blob=cached.blob;
+    else {const response=await getMaterialBlob(material);blob=await response.blob();}
+    const type=blob.type||material.mime_type||'';
+    const objectUrl=URL.createObjectURL(blob);
+    if(type.includes('pdf')||material.mime_type==='application/pdf'||blob.type==='application/octet-stream'){
+      const frame=document.createElement('iframe');frame.className='reader-frame';frame.title='JTA PDF reader';frame.src=objectUrl;
+      const fallback=document.createElement('div');fallback.className='reader-fallback';fallback.innerHTML='If the PDF does not appear in this reader, use the <a href="'+objectUrl+'" target="_blank" rel="noopener">Open PDF in a new tab</a> link. You can also use your browser PDF controls to zoom or turn pages.';
+      const holder=document.createElement('div');holder.append(frame,fallback);
+      openJtaReader(material.title||'JTA PDF Material',holder,objectUrl);
+    }else if(type.startsWith('image/')){
+      const image=document.createElement('img');image.src=objectUrl;image.alt=material.title||'JTA learning material';image.style.cssText='max-width:100%;height:auto;display:block;margin:auto';openJtaReader(material.title,image,objectUrl);
+    }else{
+      const holder=document.createElement('div');holder.className='reader-fallback';holder.textContent='This file may need to be opened in another viewer.';openJtaReader(material.title,holder,objectUrl);
+    }
+    // Keep the object URL alive while the reader is open; release it when the reader closes.
+    document.getElementById('closeReader').onclick=()=>{
+      document.getElementById('jtaReader').hidden=true;
+      document.getElementById('readerBody').replaceChildren();
+      document.getElementById('readerOpenNew').href='#';
+      URL.revokeObjectURL(objectUrl);
+    };
+  }catch(error){showStatus(error.message);}
+  finally{button.disabled=false;button.textContent=original;}
+}
+async function renderOfflineMaterials(message){
+  const status=document.getElementById('materialsStatus'),grid=document.getElementById('materialsGrid');
+  const owner=currentStudentCode();const cached=await offlineAllForCurrentStudent().catch(()=>[]);
+  const valid=cached.filter(item=>Number(item.expiresAt)>Date.now());
+  status.textContent=valid.length?(message||'You are offline. Your saved PDFs are available for up to 7 days.'):(message||'No valid offline materials are saved on this device.');
+  grid.replaceChildren();
+  valid.forEach(item=>{
+    const material={id:item.materialId,title:item.title,folder_name:item.folderName,mime_type:'application/pdf'};
+    const card=createLibraryCard(material,false);
+    const action=card.querySelector('button');
+    action.textContent='Read saved PDF offline';
+    action.onclick=()=>{
+      if(item.ownerCode!==owner||Number(item.expiresAt)<=Date.now()){showStatus('This offline access has expired. Reconnect to renew it.');return;}
+      const objectUrl=URL.createObjectURL(item.blob);
+      const frame=document.createElement('iframe');frame.className='reader-frame';frame.title='JTA offline PDF reader';frame.src=objectUrl;
+      const fallback=document.createElement('div');fallback.className='reader-fallback';fallback.innerHTML='If the PDF does not display, <a href="'+objectUrl+'" target="_blank" rel="noopener">open it in a new tab</a>.';
+      const holder=document.createElement('div');holder.append(frame,fallback);
+      openJtaReader(item.title,holder,objectUrl);
+      document.getElementById('closeReader').onclick=()=>{document.getElementById('jtaReader').hidden=true;document.getElementById('readerBody').replaceChildren();document.getElementById('readerOpenNew').href='#';URL.revokeObjectURL(objectUrl);};
+    };
+    grid.append(card);
+  });
+}
+function startOfflineOnlyPortal(){
+  document.querySelectorAll('.nav-item').forEach(button=>{if(button.dataset.view!=='study')button.hidden=true;});
+  document.querySelectorAll('.portal-view').forEach(view=>view.classList.toggle('hidden',view.id!=='view-study'));
+  const studyNav=document.querySelector('.nav-item[data-view="study"]');if(studyNav)studyNav.classList.add('active');
+  const heading=document.querySelector('#view-study .page-heading');
+  if(heading){
+    let notice=document.getElementById('offlineOnlyNotice');
+    if(!notice){notice=document.createElement('p');notice.id='offlineOnlyNotice';notice.className='empty';heading.append(notice);}
+    notice.textContent='Offline reading mode: only PDFs previously saved on this device are available. Reconnect and sign in to refresh your access.';
+  }
+  loadMaterials();
+}
+async function loadMaterials(){
+  const status=document.getElementById('materialsStatus'),grid=document.getElementById('materialsGrid');
+  const videoStatus=document.getElementById('videosStatus'),videoGrid=document.getElementById('videosGrid');
+  status.style.display='block';status.textContent='Loading your JTA study materials...';grid.replaceChildren();
+  if(videoGrid)videoGrid.replaceChildren();
+  if(!sessionStorage.getItem('jta_student_token')){await renderOfflineMaterials();if(videoStatus)videoStatus.textContent='Sign in while connected to load your video lessons.';return;}
+  try{
+    const data=await apiRequest('/api/materials'),materials=data.materials||[];
+    await purgeExpiredOfflineMaterials().catch(()=>{});
+    const videos=materials.filter(item=>!!item.youtube_video_id||String(item.mime_type||'').startsWith('video/'));
+    const pdfs=materials.filter(item=>!videos.includes(item));
+    if(!pdfs.length){status.textContent='No PDF study materials have been published or assigned to you yet.';}
+    else{
+      status.style.display='none';
+      const general=pdfs.filter(item=>item.access_type==='general');
+      if(general.length){const heading=document.createElement('h3');heading.textContent='General Study Materials';heading.style.gridColumn='1/-1';grid.append(heading);general.forEach(item=>grid.append(createLibraryCard(item,false)));}
+      const assigned=pdfs.filter(item=>item.access_type==='assigned');
+      const folders=new Map();
+      assigned.forEach(item=>{const key=item.folder_id||item.folder_name||'assigned';if(!folders.has(key))folders.set(key,{name:item.folder_name||'My Assigned Materials',items:[]});folders.get(key).items.push(item);});
+      folders.forEach(folder=>{const heading=document.createElement('h3');heading.textContent='📁 '+folder.name;heading.style.gridColumn='1/-1';grid.append(heading);folder.items.forEach(item=>grid.append(createLibraryCard(item,false)));});
+    }
+    if(videoStatus&&videoGrid){
+      if(!videos.length)videoStatus.textContent='No video lessons have been published or assigned to you yet.';
+      else{videoStatus.style.display='none';videos.forEach(item=>videoGrid.append(createLibraryCard(item,true)));}
+    }
+  }catch(error){await renderOfflineMaterials(error.message||'Could not load learning materials.');if(videoStatus)videoStatus.textContent=error.message||'Could not load video lessons.';}
+}
+document.getElementById("attendanceForm").addEventListener("submit",async function(event){
+  event.preventDefault();if(!token){showStatus("Please log in before marking attendance.");return}
+  const classDate=document.getElementById("classDate").value;if(!classDate){showStatus("Please select the class date.");return}
+  attendanceButton.disabled=true;attendanceButton.textContent="Submitting...";
+  try{await apiRequest("/api/attendance",{method:"POST",body:JSON.stringify({classDate})});showStatus("Attendance submitted successfully.",true);await loadPortal()}
+  catch(error){showStatus(error.message)}
+  finally{attendanceButton.disabled=false;attendanceButton.textContent="Mark Attendance"}
+});
+refreshButton.addEventListener("click",loadPortal);
+const refreshScoresButton=document.getElementById("refreshScoresButton");
+if(refreshScoresButton)refreshScoresButton.addEventListener("click",async()=>{
+  refreshScoresButton.disabled=true;
+  refreshScoresButton.textContent="Refreshing...";
+  try{await loadPortal();showStatus("Your examination results have been refreshed from JTA.",true);}
+  finally{refreshScoresButton.disabled=false;refreshScoresButton.textContent="Refresh My Results";}
+});
+const today=new Date();
+document.getElementById("classDate").value=[today.getFullYear(),String(today.getMonth()+1).padStart(2,"0"),String(today.getDate()).padStart(2,"0")].join("-");
+
+function closeDrawer(){document.getElementById("sideDrawer").classList.remove("open");document.getElementById("drawerShade").classList.remove("show");document.getElementById("menuToggle").setAttribute("aria-expanded","false")}
+function openDrawer(){document.getElementById("sideDrawer").classList.add("open");document.getElementById("drawerShade").classList.add("show");document.getElementById("menuToggle").setAttribute("aria-expanded","true")}
+async function loadCommunityGroups(){
+ const status=document.getElementById("communityStatus"),grid=document.getElementById("communityGroups");
+ if(!status||!grid)return; status.textContent="Loading your department's groups...";grid.replaceChildren();
+ try{const data=await apiRequest("/api/student/community-groups");const groups=Array.isArray(data.groups)?data.groups:[];
+ if(!groups.length){status.textContent="No community links have been published for your department yet. Please check again later.";return}
+ status.textContent="Your department: "+safeText(data.department)+" · "+groups.length+" official group link(s).";
+ groups.forEach(group=>{const card=document.createElement("section");card.className="card";
+ const head=document.createElement("div");head.className="card-heading";const icon=document.createElement("span");icon.className="card-symbol";icon.textContent=group.platform==="telegram"?"➤":"◉";
+ const info=document.createElement("div");const title=document.createElement("h3");title.textContent=group.title;const sub=document.createElement("p");sub.textContent=(group.platform==="telegram"?"Telegram":"WhatsApp")+" · "+(group.scope==="general"?"Official JTA community":group.scope==="department"?group.department+" department":""+group.department+" · "+group.subject);info.append(title,sub);head.append(icon,info);card.append(head);
+ const link=document.createElement("a");link.className="button-link full-button";link.href=group.inviteUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent=group.platform==="telegram"?"Open Telegram group / channel":"Join WhatsApp group";card.append(link);grid.append(card);});
+ }catch(error){status.textContent=error.message||"Unable to load community links."}
+}
+const JTA_PORTAL_VIEWS=["home","study","videos","test","chat","news","connect","shop","dashboard","download"];
+function getSavedPortalView(){
+  const requested=(window.location.hash||"").replace(/^#(?:view-)?/,"").trim().toLowerCase();
+  return JTA_PORTAL_VIEWS.includes(requested)?requested:"home";
+}
+function showView(name,updateAddress=true){
+  if(!JTA_PORTAL_VIEWS.includes(name))name="home";
+  if(name==="study"||name==="videos")loadMaterials();
+  if(name==="chat")loadCommunityGroups();
+  document.querySelectorAll(".portal-view").forEach(view=>view.classList.add("hidden"));
+  const target=document.getElementById("view-"+name);
+  if(target)target.classList.remove("hidden");
+  document.querySelectorAll(".nav-item").forEach(button=>button.classList.toggle("active",button.dataset.view===name));
+  if(updateAddress){
+    const nextHash="#"+name;
+    if(window.location.hash!==nextHash)history.replaceState(null,"",nextHash);
+  }
+  closeDrawer();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav-item").forEach(button=>button.addEventListener("click",()=>showView(button.dataset.view)));
+document.querySelectorAll("[data-open-view]").forEach(button=>button.addEventListener("click",()=>showView(button.dataset.openView)));
+window.addEventListener("hashchange",()=>showView(getSavedPortalView(),false));
+document.getElementById("menuToggle").addEventListener("click",openDrawer);document.getElementById("menuClose").addEventListener("click",closeDrawer);document.getElementById("drawerShade").addEventListener("click",closeDrawer);
+function logout(){sessionStorage.removeItem("jta_student_token");localStorage.removeItem("jta_student_code");window.location.replace("login.html")}
+document.getElementById("logoutButton").addEventListener("click",logout);document.getElementById("headerLogout").addEventListener("click",logout);
+// If the browser restores this page from its back-forward cache after logout, re-check access.
+window.addEventListener("pageshow",event=>{
+  if(event.persisted&&!sessionStorage.getItem("jta_student_token")&&!currentStudentCode())redirectToLogin();
+});
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./jta-study-sw.js').catch(()=>{}));
+}
+loadPortal();
+showView(getSavedPortalView(),false);
+</script>
+</body>
+</html>

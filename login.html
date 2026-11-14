@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#092B4C">
+
+  <title>Student Login | Justified Tutor's Academy</title>
+
+  <style>
+    :root {
+      --jta-navy: #092B4C;
+      --jta-blue: #124A78;
+      --jta-teal: #087F8C;
+      --jta-gold: #E6B84A;
+      --jta-white: #FFFFFF;
+      --jta-light: #F2F7FA;
+      --jta-text: #183247;
+      --jta-muted: #667B8C;
+      --jta-border: #D8E3EC;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--jta-text);
+      background:
+        radial-gradient(circle at top right, #1D6584 0%, transparent 40%),
+        linear-gradient(135deg, var(--jta-navy), var(--jta-blue));
+    }
+
+    .page {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .brand {
+      text-align: center;
+      color: var(--jta-white);
+      margin-bottom: 22px;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--jta-gold);
+      border-radius: 50%;
+      background: var(--jta-white);
+      color: var(--jta-navy);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(21px, 5vw, 27px);
+      line-height: 1.3;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: #E1EDF5;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .gold-line {
+      width: 64px;
+      height: 4px;
+      margin: 14px auto 0;
+      border-radius: 5px;
+      background: var(--jta-gold);
+    }
+
+    .login-card {
+      padding: 30px 26px;
+      background: var(--jta-white);
+      border-radius: 18px;
+      border-top: 5px solid var(--jta-gold);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    }
+
+    .login-card h2 {
+      margin: 0;
+      color: var(--jta-navy);
+      font-size: 25px;
+    }
+
+    .intro {
+      margin: 9px 0 24px;
+      color: var(--jta-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin: 17px 0 8px;
+      color: var(--jta-navy);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 14px;
+      border: 1px solid var(--jta-border);
+      border-radius: 9px;
+      background: var(--jta-light);
+      color: var(--jta-text);
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--jta-teal);
+      box-shadow: 0 0 0 3px rgba(8, 127, 140, 0.13);
+      background: var(--jta-white);
+    }
+
+    .login-button {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 9px;
+      background: var(--jta-navy);
+      color: var(--jta-white);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .login-button:hover { background: var(--jta-teal); }
+
+    .login-button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    #message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .links {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 2.1;
+    }
+
+    a {
+      color: var(--jta-teal);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .footer {
+      margin-top: 22px;
+      text-align: center;
+      color: #E1EDF5;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer strong { color: var(--jta-gold); }
+
+    @media (max-width: 380px) {
+      .login-card { padding: 25px 19px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="brand">
+      <div class="logo" aria-label="JTA logo">JTA</div>
+      <h1>JUSTIFIED TUTOR'S ACADEMY</h1>
+      <p>300+ IN JAMB IS OUR CALLING</p>
+      <div class="gold-line"></div>
+    </header>
+
+    <section class="login-card">
+      <h2>Welcome Back!</h2>
+
+      <p class="intro">
+        Sign in with your JTA student code and password
+        to access your academic activities and progress.
+      </p>
+
+      <form id="loginForm">
+        <label for="studentCode">JTA Student Code</label>
+
+        <input
+          id="studentCode"
+          name="studentCode"
+          type="text"
+          placeholder="e.g. JTA2027-0002"
+          autocomplete="username"
+          autocapitalize="characters"
+          required
+        >
+
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button class="login-button" id="loginButton" type="submit">
+          Sign In to Your Account
+        </button>
+      </form>
+
+      <div id="message" role="status" aria-live="polite"></div>
+</section>
+
+    <footer class="footer">
+      <strong>JTA STUDENT PORTAL</strong>
+      <br>
+      © 2027 Justified Tutor's Academy
+      <br>
+      Empowering Students for Academic Excellence
+    </footer>
+
+  </main>
+
+  <script>
+    const API_BASE =
+      "https://jta-student-backend.justifiedtutorsacademy.workers.dev";
+
+    const form = document.getElementById("loginForm");
+    const button = document.getElementById("loginButton");
+    const message = document.getElementById("message");
+
+    function showMessage(text, success = false) {
+      message.style.display = "block";
+      message.style.background = success ? "#E5F7EC" : "#FDECEC";
+      message.style.color = success ? "#176638" : "#A12626";
+      message.textContent = text;
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const studentCode =
+        document.getElementById("studentCode").value.trim().toUpperCase();
+
+      const password =
+        document.getElementById("password").value;
+
+      button.disabled = true;
+      button.textContent = "Signing In...";
+      message.style.display = "none";
+
+      try {
+        const response = await fetch(`${API_BASE}/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            studentCode: studentCode,
+            password: password
+          })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.message ||
+            data.error ||
+            "Login failed. Check your student code and password."
+          );
+        }
+
+        const token = data.token || data.sessionToken;
+
+        if (!token) {
+          throw new Error(
+            "The server did not return a login session. Please contact the academy administrator."
+          );
+        }
+
+        sessionStorage.setItem("jta_student_token", token);
+
+        showMessage("Login successful! Opening your student portal...", true);
+
+        window.location.href = "student-portal.html";
+
+      } catch (error) {
+        showMessage(
+          error.message ||
+          "Unable to connect. Please check your internet connection."
+        );
+
+        button.disabled = false;
+        button.textContent = "Sign In to Your Account";
+      }
+    });
+  </script>
+</body>
+</html>
