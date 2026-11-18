@@ -802,7 +802,7 @@ function normalizeQuestions(data) {
     id: q.id ?? q.question_id ?? q.questionId ?? String(index + 1),
     text: q.question ?? q.text ?? q.question_text ?? q.prompt ?? "",
     options: q.options ?? q.options_json ?? q.choices ?? [],
-    subject: q.subject || ""
+    subject: q.subject || "", image_data:q.image_data||q.imageData||"", image_url:q.image_url||q.imageUrl||"", explanation:q.explanation||"", solution_steps:q.solution_steps||[], key_point:q.key_point||""
   }));
 }
  
@@ -981,6 +981,9 @@ function renderQuestion() {
   $("questionNumber").textContent =
     `Question ${currentIndex + 1} of ${questions.length}`;
   $("questionText").textContent = q.text || "Question text unavailable.";
+  const oldImage=$("questionImage"); if(oldImage) oldImage.remove();
+  const imageSource = q.image_data || q.image_url || "";
+  if(imageSource){ const img=document.createElement("img"); img.id="questionImage"; img.alt="Question illustration"; img.src=imageSource; img.style.cssText="display:block;max-width:100%;max-height:420px;object-fit:contain;margin:14px auto;border-radius:10px"; img.onerror=()=>{img.alt="Question image could not be loaded";}; $("questionText").insertAdjacentElement("afterend",img); }
   $("options").replaceChildren();
  
   let options = q.options;
@@ -1228,7 +1231,11 @@ async function loadCorrections(attemptId) {
         line.textContent=label+". "+value; card.appendChild(line);
       });
       const your=document.createElement("p"); your.textContent="Your answer: "+(entry.selected_answer||"Not answered"); card.appendChild(your);
+      if(entry.image_data||entry.image_url){const img=document.createElement("img");img.src=entry.image_data||entry.image_url;img.alt="Question illustration";img.style.cssText="display:block;max-width:100%;max-height:360px;object-fit:contain;margin:12px auto";card.appendChild(img);}
       const correct=document.createElement("p"); correct.style.fontWeight="700"; correct.textContent="Correct answer: "+(entry.correct_answer??"Not supplied"); card.appendChild(correct);
+      if(entry.explanation){const h=document.createElement("h5");h.textContent="Explanation";card.appendChild(h);const ex=document.createElement("p");ex.textContent=entry.explanation;card.appendChild(ex);}
+      let steps=entry.solution_steps||[];try{if(typeof steps==="string")steps=JSON.parse(steps)}catch(_){steps=[]}if(Array.isArray(steps)&&steps.length){const h=document.createElement("h5");h.textContent="Step-by-step solution";card.appendChild(h);const ol=document.createElement("ol");steps.forEach(s=>{const li=document.createElement("li");li.textContent=s;ol.appendChild(li)});card.appendChild(ol);}
+      if(entry.key_point){const kp=document.createElement("p");kp.textContent="Key point: "+entry.key_point;kp.style.cssText="padding:10px;background:#eef3ff;border-radius:8px";card.appendChild(kp);}
       const marks=document.createElement("p"); marks.textContent="Marks: "+Number(entry.marks_awarded||0)+" / "+Number(entry.marks||0); card.appendChild(marks);
       panel.appendChild(card);
     });
